@@ -32,9 +32,9 @@ jobs:
       if: success()
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "dev"
+        automatic_release_tag: "01"
         prerelease: false
-        title: "构建版本"
+        title: "第一次构建版本"
         files: |
           target/ResidenceForm.jar
         
