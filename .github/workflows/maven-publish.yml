@@ -34,7 +34,7 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "01"
         prerelease: false
-        title: "第一次构建版本"
+        title: "AUTO-RELEASE"
         files: |
           target/ResidenceForm.jar
         
