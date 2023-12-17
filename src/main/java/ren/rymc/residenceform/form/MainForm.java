@@ -73,7 +73,8 @@ public class MainForm {
         FloodgateApi.getInstance().getPlayer(uuid).sendForm(
                 SimpleForm.builder()
                         .title("领地创建菜单")
-                        .content("§c建议使用选区工具（木棍）圈地，以下功能若不理解含义请勿使用§r\n\n当前选区:\n" + content)
+                        .content("§a建议使用选区工具（木棍）圈地：右键(或点按屏幕)选择一个点，左键(或长按屏幕)选择第二个点。§e还不懂的话，请查阅下方帮助。\n§c以下功能若不理解含义请勿使用§r\n\n当前选区:\n" + content)
+                        .button("选区圈地帮助")
                         .button("开启/关闭自动选区")
                         .button("以你为中心选区")
                         .button("手动输入选区坐标")
@@ -87,19 +88,39 @@ public class MainForm {
                             SimpleFormResponse response = f.parseResponse(r);
                             if (response.isCorrect()) {
                                 int id = response.getClickedButtonId();
-                                if (id == 0) Bukkit.dispatchCommand(player, "res select auto");
-                                else if (id == 1) sendResPlayerSelectForm(player);
-                                else if (id == 2) sendResManualSelectForm(player);
-                                else if (id == 3) sendResSelectExpandAndContractForm(player);
-                                else if (id == 4) sendResCreateForm(player);
-                                else if (id == 5) sendResTempSelectionForm(player);
-                                else if (id == 6) sendResTempSelectionImportForm(player);
-                                else if (id == 7) sendResTempSelectionRemoveForm(player);
-                                else if (id == 8) sendMainResidenceForm(player);
+                                if (id == 0) sendSelectHelpForm(player);
+                                else if (id == 1) Bukkit.dispatchCommand(player, "res select auto");
+                                else if (id == 2) sendResPlayerSelectForm(player);
+                                else if (id == 3) Bukkit.dispatchCommand(player, "forms open selectdeny");
+                                else if (id == 4) sendResSelectExpandAndContractForm(player);
+                                else if (id == 5) sendResCreateForm(player);
+                                else if (id == 6) sendResTempSelectionForm(player);
+                                else if (id == 7) sendResTempSelectionImportForm(player);
+                                else if (id == 8) sendResTempSelectionRemoveForm(player);
+                                else if (id == 9) sendMainResidenceForm(player);
                             }
                         })
         );
     }
+
+    public static void sendSelectHelpForm(Player player) {
+        UUID uuid = player.getUniqueId();
+        if (!FloodgateApi.getInstance().isFloodgatePlayer(uuid)) return;
+        FloodgateApi.getInstance().getPlayer(uuid).sendForm(
+                SimpleForm.builder()
+                        .title("圈地帮助")
+                        .content("使用木棍圈地：手持木棍右键(或点按屏幕)选择一个点，左键(或长按屏幕)选择第二个点，成功选上后会有消息提示。选出来的两个点的连线就是领地范围的体对角线。选择成功后在聊天栏输入命令“/res create <你给领地起的名字>”或再次打开领地创建菜单点击“创建领地”完成创建。\n§e注意！领地范围是一个长方体，你用木棍要选出来的连线的是长方体的体对角线，不是长方形的对角线，它是立体的，千万不要只圈一层地表皮！")
+                        .button("返回上一级")
+                        .responseHandler((f, r) -> {
+                            SimpleFormResponse response = f.parseResponse(r);
+                            if (response.isCorrect()) {
+                                int id = response.getClickedButtonId();
+                                if (id == 0) MainForm.sendResCreateSelectForm(player);
+                            }
+                        })
+        );
+    }
+
 
     public static void sendResCreateForm(Player player) {
         UUID uuid = player.getUniqueId();
@@ -594,8 +615,8 @@ public class MainForm {
         FloodgateApi.getInstance().getPlayer(uuid).sendForm(
                 SimpleForm.builder()
                         .title("领地传送点设置")
-                        .content("将你所在的位置设置为领地传送点\n（§e其它玩家使用命令传送至此领地时会去往的坐标§r）\n领地: " + residence.getName() + "\n你的坐标:" + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + "\n\n")
-                        .button("将传送点设置为当前坐标\n§b(想让别人来的话还要打开tp权限)")
+                        .content("将你所在的位置设置为领地传送点\n（§3其它人通过菜单或命令传送至此领地时会去往的坐标§r）\n领地: " + residence.getName() + "\n你的坐标:" + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + "\n\n")
+                        .button("将传送点设置为当前坐标\n§b(想让别人传送过来的话还要打开tp权限)")
                         .button("返回领地管理")
                         .responseHandler((f, r) -> {
                             SimpleFormResponse response = f.parseResponse(r);
