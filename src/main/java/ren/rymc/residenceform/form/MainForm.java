@@ -73,13 +73,13 @@ public class MainForm {
         FloodgateApi.getInstance().getPlayer(uuid).sendForm(
                 SimpleForm.builder()
                         .title("领地创建菜单")
-                        .content("§a请使用选区工具（木棍）圈地。§e不懂的话，可以查阅下方帮助。\n§c以下功能若不理解含义请勿使用§r\n\n当前选区:\n" + content)
-                        .button("选区圈地帮助")
+                        .content("§a请使用选区工具（木棍）圈地。§e不懂的话可查阅下方帮助。\n§c以下功能若不理解含义请勿使用§r\n\n当前选区:\n" + content)
+                        .button("圈地选区帮助")
                         .button("开启/关闭自动选区")
                         .button("以你为中心选区")
                         .button("手动输入选区坐标")
                         .button("扩大/缩小选区")
-                        .button("创建领地\n§7圈好区以后再点我")
+                        .button("创建领地\n§8圈好区以后再点我")
                         .button("将此选区保存为草稿")
                         .button("导入领地草稿")
                         .button("删除领地草稿")
@@ -109,7 +109,7 @@ public class MainForm {
         FloodgateApi.getInstance().getPlayer(uuid).sendForm(
                 SimpleForm.builder()
                         .title("圈地帮助")
-                        .content("使用木棍圈地：手持木棍右键(或点按屏幕)选择一个点，左键(或长按屏幕)选择第二个点，成功选上后会有消息提示。选出来的两个点的连线就是领地范围的体对角线。选择成功后在聊天栏输入命令“/res create <你给领地起的名字>”或再次打开领地创建菜单点击“创建领地”完成创建。\n§e注意！领地范围是一个长方体，你用木棍选出来的连线的是长方体的体对角线，不是长方形的对角线，它是立体的，千万不要只圈一层地表皮！")
+                        .content("使用木棍圈地：手持木棍右键(或点按屏幕)选择一个点，左键(或长按屏幕)选择第二个点，成功选上后会有消息提示。选出来的两个点的连线就是领地范围的体对角线。选择成功后在聊天栏输入命令“/res create <你给领地起的名字>”或再次打开领地创建菜单点击“创建领地”完成创建。\n§e注意！领地范围是一个长方体，你用木棍选出来的连线的是长方体的体对角线，不是长方形的对角线，它是立体的，千万不要只圈一层地表皮！东西来之不易，不要轻易被别人偷走！")
                         .button("返回上一级")
                         .responseHandler((f, r) -> {
                             SimpleFormResponse response = f.parseResponse(r);
@@ -358,8 +358,8 @@ public class MainForm {
         FloodgateApi.getInstance().getPlayer(uuid).sendForm(
                 SimpleForm.builder()
                         .title("插件信息")
-                        .content("§7暗之光服务器基岩版领地菜单\n基于RENaa_FD的ResidenceForm本地化而来”\n\n源代码使用MIT License\n修改: GorgeousStar（服主）\n\n\n§a===============================\n§d          暗之光服务器\n§a===============================\n\n\n\n")
-                        .button("返回主菜单")
+                        .content("§7暗之光服务器基岩版领地菜单\n基于RENaa_FD的ResidenceForm本地化而来\n源代码使用 MIT License\n修改: GorgeousStar（服主）\n\n\n§a===============================\n§d         暗之光服务器\n§a===============================\n\n\n\n\n")
+                        .button("返回")
                         .responseHandler((f, r) -> {
                             SimpleFormResponse response = f.parseResponse(r);
                             if (response.isCorrect()) {
