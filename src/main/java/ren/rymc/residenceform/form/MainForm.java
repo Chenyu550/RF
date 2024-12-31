@@ -75,11 +75,11 @@ public class MainForm {
                         .title("领地创建菜单")
                         .content("§a请使用选区工具（木棍）圈地。§e不懂的话可查阅下方帮助。\n§c以下功能若不理解含义请勿使用§r\n\n当前选区:\n" + content)
                         .button("圈地选区帮助")
-                        .button("开启/关闭自动选区")
+                        .button("创建领地\n§3圈好区以后再点我")
                         .button("以你为中心选区")
-                        .button("手动输入选区坐标")
+                        .button("开启/关闭自动选区")
                         .button("扩大/缩小选区")
-                        .button("创建领地\n§8圈好区以后再点我")
+                        .button("手动输入选区坐标")
                         .button("将此选区保存为草稿")
                         .button("导入领地草稿")
                         .button("删除领地草稿")
@@ -89,11 +89,11 @@ public class MainForm {
                             if (response.isCorrect()) {
                                 int id = response.getClickedButtonId();
                                 if (id == 0) sendSelectHelpForm(player);
-                                else if (id == 1) Bukkit.dispatchCommand(player, "res select auto");
+                                else if (id == 1) sendResCreateForm(player);
                                 else if (id == 2) sendResPlayerSelectForm(player);
-                                else if (id == 3) Bukkit.dispatchCommand(player, "forms open selectdeny");
+                                else if (id == 3) Bukkit.dispatchCommand(player, "res select auto");
                                 else if (id == 4) sendResSelectExpandAndContractForm(player);
-                                else if (id == 5) sendResCreateForm(player);
+                                else if (id == 5) Bukkit.dispatchCommand(player, "forms open selectdeny");
                                 else if (id == 6) sendResTempSelectionForm(player);
                                 else if (id == 7) sendResTempSelectionImportForm(player);
                                 else if (id == 8) sendResTempSelectionRemoveForm(player);
@@ -384,7 +384,7 @@ public class MainForm {
                 CustomForm.builder()
                         .title("§8领地传送")
                         .dropdown("你可以使用此下拉框(§c只会显示你创建或加入的§r)", resList)
-                        .input("其它领地请在下方输入名称", "完整领地名称")
+                        .input("其它领地请在下方输入名称", "领地名称")
                         .responseHandler((f, r) -> {
                             CustomFormResponse response = f.parseResponse(r);
                             if (response.isCorrect()) {
